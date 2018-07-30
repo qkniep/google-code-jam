@@ -1,4 +1,4 @@
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 # Google Code Jam
 This is a collection of solutions I wrote for past Google Code Jams.
