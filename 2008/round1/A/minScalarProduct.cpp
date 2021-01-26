@@ -1,7 +1,5 @@
 /*
- * minScalarProduct.cpp
- * Copyright (C) 2018 Quentin Kniep <hello@quentinkniep.com>
- *
+ * Copyright (C) 2018 Quentin M. Kniep <hello@quentinkniep.com>
  * Distributed under terms of the MIT license.
  */
 
@@ -9,38 +7,39 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
 
-std::vector<long> readVector(int n) {
-	std::vector<long> v;
-	for (int i = 0; i < n; ++i) {
-		long tmp;
-		std::cin >> tmp;
-		v.push_back(tmp);
-	}
-	return v;
+vector<long> readVector(int n) {
+    vector<long> v;
+    long tmp;
+    for (int i = 0; i < n; ++i) {
+        cin >> tmp;
+        v.push_back(tmp);
+    }
+    return v;
 }
 
 int main() {
-	int t;
-	std::cin >> t;
+    unsigned int T, N;
 
-	for (int i = 0; i < t; ++i) {
-		int n;
-		std::cin >> n;
+    cin >> T;
 
-		std::vector<long> v1 = readVector(n);
-		std::vector<long> v2 = readVector(n);
-		std::sort(v1.begin(), v1.end());  // sort vector 1 from small to large values
-		std::sort(v2.rbegin(), v2.rend());  // sort vector 2 in reverse order
+    for (int t = 1; t <= T; t++) {
+        cin >> N;
 
-		// calculate the scalar product of these vectors
-		long min = 0;
-		for (int k = 0; k < n; ++k) {
-			min += v1[k] * v2[k];
-		}
+        vector<long> v1 = readVector(N);
+        vector<long> v2 = readVector(N);
+        sort(v1.begin(), v1.end());  // sort vector 1 from small to large values
+        sort(v2.rbegin(), v2.rend());  // sort vector 2 in reverse order
 
-		std::cout << "Case #" << (i+1) << ": " << min << std::endl;
-	}
+        // calculate the scalar product of these vectors
+        long min = 0;
+        for (int n = 0; n < N; n++) {
+            min += v1[n] * v2[n];
+        }
 
-	return 0;
+        cout << "Case #" << t << ": " << (min-1) << endl;
+    }
+
+    return 0;
 }

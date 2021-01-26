@@ -1,7 +1,5 @@
 /*
- * searchEngines.cpp
- * Copyright (C) 2018 Quentin Kniep <hello@quentinkniep.com>
- *
+ * Copyright (C) 2018 Quentin M. Kniep <hello@quentinkniep.com>
  * Distributed under terms of the MIT license.
  */
 
@@ -9,48 +7,46 @@
 #include <string>
 #include <unordered_map>
 
+using namespace std;
 
 int main() {
-	std::string line;
-	std::getline(std::cin, line);
-	int numTestCases = std::stoi(line);
+    string line;
+    unsigned int T, S, Q;
 
-	for (int i = 0; i < numTestCases; ++i) {
-		int switchesNecessary = 0;
-		std::unordered_map<std::string, bool> searchEngines;
+    getline(cin, line);
+    T = stoi(line);
 
-		std::getline(std::cin, line);
-		int numSearchEngines = std::stoi(line);
+    for (int t = 1; t <= T; t++) {
+        int switches = 0;
+        unordered_map<string, bool> searchEngines;
 
-		for (int s = 0; s < numSearchEngines; ++s) {
-			std::getline(std::cin, line);
-			searchEngines[line] = true;
-		}
+        getline(cin, line);
+        S = stoi(line);
 
-		std::getline(std::cin, line);
-		int numQueries = std::stoi(line);
+        for (int s = 0; s < S; s++) {
+            getline(cin, line);
+            searchEngines[line] = true;
+        }
 
-		std::unordered_map<std::string, bool> possibleSearchEngines;
-		possibleSearchEngines.insert(searchEngines.begin(), searchEngines.end());
-		int numPossibleSearchEngines = numSearchEngines;
+        getline(cin, line);
+        Q = stoi(line);
 
-		for (int q = 0; q < numQueries; ++q) {
-			std::getline(std::cin, line);
-			if (possibleSearchEngines[line]) {
-				if (numPossibleSearchEngines == 1) {
-					switchesNecessary++;
-					numPossibleSearchEngines = numSearchEngines;
-					possibleSearchEngines.clear();
-					possibleSearchEngines.insert(searchEngines.begin(), searchEngines.end());
-				}
-				possibleSearchEngines[line] = false;
-				numPossibleSearchEngines--;
-			}
-		}
+        unordered_map<string, bool> possible(searchEngines);
+        int numPossible= S;
 
-		std::cout << "Case #" << (i+1) << ": " << switchesNecessary << std::endl;
-	}
+        for (int q = 0; q < Q; q++) {
+            getline(cin, line);
+            if (possible[line]) {
+                if (numPossible == 1) {
+                    switches++;
+                    numPossible = S;
+                    possible = searchEngines;
+                }
+                possible[line] = false;
+                numPossible--;
+            }
+        }
 
-
-	return 0;
+        cout << "Case #" << t << ": " << switches << endl;
+    }
 }
